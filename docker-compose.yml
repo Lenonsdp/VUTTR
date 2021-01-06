@@ -1,0 +1,16 @@
+version: "2"
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    volumes:
+      - ./:/app
+    ports: [
+      "3000:3000"
+    ]

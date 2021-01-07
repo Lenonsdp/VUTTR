@@ -1,5 +1,6 @@
+require('dotenv').config();
+
 export default {
-	secret: 'lenon',
+	secret: process.env.SECRET,
 	expiresIn: '7d'
-  };
-  
+};

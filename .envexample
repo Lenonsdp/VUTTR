@@ -1,0 +1,7 @@
+#auth
+SECRET = 'testeSecret'
+
+#Database
+HOST = 'localhost'
+NAME = 'postgres'
+PASSWORD = 'example'

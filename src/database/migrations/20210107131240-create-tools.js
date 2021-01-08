@@ -19,6 +19,16 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: false,
 			},
+			tags: {
+				type: Sequelize.STRING,
+				allowNull: false,
+				// get() {
+				// 	return this.getDataValue('tags').split(',')
+				// },
+				// set(val) {
+				//    this.setDataValue('tags', val.join(','));
+				// },
+			},
 			created_at: {
 				allowNull: false,
 				type: Sequelize.DATE

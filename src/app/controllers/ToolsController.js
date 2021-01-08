@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import Tools from '../models/Tools';
-import ToolsTags from '../models/ToolsTags';
+
+import { Op } from 'sequelize';
 
 class ToolsController {
 	async store(req, res) {
@@ -13,17 +14,7 @@ class ToolsController {
 		if (!(await schema.isValid(req.body))) {
 			return res.status(400).json({ error: 'Validation fails.' });
 		}
-
-		const { id, title, link, description } = await Tools.create(req.body);
-		
-		var tags = [];
-		await req.body.tags.forEach(element => {
-			ToolsTags.create({
-				id_tool: id,
-				tag: element
-			});
-			tags.push(element); 			
-		});
+		const { id, title, link, description, tags } = await Tools.create(req.body);
 
 		return res.json({
 			title,
@@ -32,6 +23,49 @@ class ToolsController {
 			id,
 			tags
 		});
+	}
+
+	async index(req, res) {
+		const { page = 1 } = req.query;
+		const tools = await Tools.findAll({
+			order: ['id'],
+			attributes: ['id', 'title', 'link', 'description', 'tags'],
+			limit: 20,
+			offset: (page - 1) * 20,
+		});
+
+		return res.json(tools);
+	}
+
+	async show(req, res) {
+		const { page = 1 } = req.query;
+		const tools = await Tools.findAll({
+			order: ['id'],
+			attributes: ['id', 'title', 'link', 'description', 'tags'],
+			limit: 20,
+			offset: (page - 1) * 20,
+			where: {
+				tags: { [Op.substring]: req.params.tag }
+			}
+		});
+		return res.json(tools);
+	}
+
+	async delete(req, res) {
+		const tool = Tools.findByPk(req.params.id);
+		console.log(tool);
+		if (tool) {
+			Tools.destroy({
+				where: {
+					id: req.params.id
+				}
+			  },function(error,result){
+				  console.log(result);
+				return res.status(204).json({ msg: 'No Content.' });
+			  });
+		} else {
+			return res.status(404).json({ error: 'Tool not found.' });
+		}
 	}
 }
 

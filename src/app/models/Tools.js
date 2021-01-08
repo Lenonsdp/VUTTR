@@ -11,13 +11,13 @@ class Tools extends Model {
 				},
 				link: Sequelize.STRING,
 				title: Sequelize.STRING,
-				description: Sequelize.STRING
+				description: Sequelize.STRING,
+				tags:  Sequelize.JSON
 			},
 			{
 				sequelize
 			}
 		);
-
 		return this;
 	}
 }

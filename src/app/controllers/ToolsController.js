@@ -29,7 +29,7 @@ class ToolsController {
 		const { page = 1 } = req.query;
 		const tools = await Tools.findAll({
 			order: ['id'],
-			attributes: ['id', 'title', 'link', 'description', 'tags'],
+			attributes: [ 'id', 'title', 'link', 'description', 'tags'],
 			limit: 20,
 			offset: (page - 1) * 20,
 		});

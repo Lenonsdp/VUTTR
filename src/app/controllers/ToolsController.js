@@ -52,17 +52,16 @@ class ToolsController {
 	}
 
 	async delete(req, res) {
-		const tool = Tools.findByPk(req.params.id);
+		const tool = await Tools.findByPk(req.params.id);
 		console.log(tool);
 		if (tool) {
-			Tools.destroy({
+			await Tools.destroy({
 				where: {
 					id: req.params.id
 				}
-			  },function(error,result){
-				  console.log(result);
-				return res.status(204).json({ msg: 'No Content.' });
-			  });
+			});
+
+			return res.status(204).json({ msg: 'No Content.' });
 		} else {
 			return res.status(404).json({ error: 'Tool not found.' });
 		}

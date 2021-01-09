@@ -21,13 +21,7 @@ module.exports = {
 			},
 			tags: {
 				type: Sequelize.STRING,
-				allowNull: false,
-				// get() {
-				// 	return this.getDataValue('tags').split(',')
-				// },
-				// set(val) {
-				//    this.setDataValue('tags', val.join(','));
-				// },
+				allowNull: false
 			},
 			created_at: {
 				allowNull: false,

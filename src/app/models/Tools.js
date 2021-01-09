@@ -12,7 +12,15 @@ class Tools extends Model {
 				link: Sequelize.STRING,
 				title: Sequelize.STRING,
 				description: Sequelize.STRING,
-				tags:  Sequelize.JSON
+				tags: {
+					type: Sequelize.TEXT,
+					get: function () {
+						return JSON.parse(this.getDataValue("tags"));
+					},
+					set: function (value) {
+						return this.setDataValue("tags", JSON.stringify(value));
+					}
+				}
 			},
 			{
 				sequelize

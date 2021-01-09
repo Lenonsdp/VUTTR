@@ -53,7 +53,6 @@ class ToolsController {
 
 	async delete(req, res) {
 		const tool = await Tools.findByPk(req.params.id);
-		console.log(tool);
 		if (tool) {
 			await Tools.destroy({
 				where: {

@@ -16,7 +16,7 @@ class ToolsController {
 		}
 		const { id, title, link, description, tags } = await Tools.create(req.body);
 
-		return res.json({
+		return res.status(201).json({
 			title,
 			link,
 			description,

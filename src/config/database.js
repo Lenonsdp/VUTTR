@@ -7,7 +7,7 @@ module.exports = {
 	host: process.env.HOST,
 	username: process.env.NAME,
 	password: process.env.PASSWORD,
-	database: '',
+	database: 'vuttr',
 	storage: './__tests__/database.sqlite',
 	define: {
 		timestamp: true,

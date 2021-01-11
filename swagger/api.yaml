@@ -33,7 +33,6 @@ paths:
       - "users"
       summary: "Create user"
       description: "Create user."
-      operationId: "createUser"
       produces:
       - "application/xml"
       - "application/json"
@@ -49,9 +48,10 @@ paths:
           description: "successful operation" 
   /sessions:
      post:
+      summary: "Create session"
       description: 'Returns token for authorized User'
-      tags: [users]
-      operationId: Login
+      tags:
+      - "users"
       consumes:
         - "application/json"
       parameters:
@@ -68,11 +68,12 @@ paths:
           description: Token
   /tools:
     get:
+      security:
+      - Bearer: []
       tags:
       - "tools"
       summary: "Returns all tools saves"
       description: "Returns all tools saves"
-      operationId: "getTools"
       produces:
       - "application/json"
       parameters: []
@@ -86,9 +87,11 @@ paths:
               format: "int32"
   /tools/{tag}:
    get:
+    security:
+     - Bearer: []
     tags:
     - "tools"
-    summary: "Find purchase tool by tag"
+    summary: "Find a tool by tag"
     description: ""
     operationId: ""
     produces:
@@ -97,9 +100,9 @@ paths:
     parameters:
     - name: "tag"
       in: "path"
-      description: "Tag of tools that needs to be fetched"
+      description: "Tag of tool that needs to be fetched"
       required: true
-      type: "integer"
+      type: "string"
       maximum: 10.0
       minimum: 1.0
       format: "int64"
@@ -114,6 +117,8 @@ paths:
         description: "Tools not found"
   /tools/:
     post:
+      security:
+      - Bearer: []
       tags:
       - "tools"
       summary: "Place an new tool"
@@ -138,9 +143,11 @@ paths:
           description: "Invalid Tools"
   /tools/{id}/:
     delete:
+      security:
+      - Bearer: []
       tags:
       - "tools"
-      summary: "Delete purchase tool by ID"
+      summary: "Delete a tool by ID"
       description: "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors"
       operationId: "delete"
       produces:
@@ -191,7 +198,7 @@ definitions:
         items: {}
     xml:
       name: "Tools"
-schemas:
+  schemas:
     SuccessLogin:
       type: object
       properties:

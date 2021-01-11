@@ -29,7 +29,9 @@ class User extends Model {
 	}
 
 	generateToken() {
-		return jwt.sign({ id: this.id }, process.env.SECRET)
+		return jwt.sign({ id: this.id }, process.env.SECRET, {
+			expiresIn: process.env.EXPIRESIN
+		});
 	}
 }
 

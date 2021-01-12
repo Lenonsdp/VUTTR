@@ -3,7 +3,7 @@ services:
   app:
     build: .
     container_name: "vuttr-node-js"
-    command: sh -c "npm run sequelize db:migrate && npm run start"
+    command: sh -c "npm run sequelize db:migrate && npm run build && npm run start"
     volumes:
       - ./:/app
     ports:

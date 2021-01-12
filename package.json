@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+	"dev": "nodemon src/server.js",
+	"build": "sucrase ./src -d ./dist imports",
+	"start": "node ./dist/server.js",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
@@ -20,7 +22,8 @@
     "mongoose": "^5.11.10",
     "node-pre-gyp": "^0.17.0",
     "pg": "^8.5.1",
-    "sequelize": "^6.3.5",
+	"sequelize": "^6.3.5",
+	"sucrase": "^3.17.0",
     "yup": "^0.32.8"
   },
   "devDependencies": {
@@ -30,7 +33,6 @@
     "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0",
     "sqlite3": "^5.0.1",
-    "sucrase": "^3.17.0",
     "supertest": "^6.0.1"
   },
   "heroku-run-build-script": true

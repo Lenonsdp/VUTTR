@@ -4,9 +4,9 @@ require('dotenv').config({
 
 module.exports = {
 	dialect: process.env.DB_DIALECT || 'postgres',
-	host: process.env.HOST,
-	username: process.env.NAME,
-	password: process.env.PASSWORD,
+	host: process.env.DB_HOST,
+	username: process.env.DB_NAME,
+	password: process.env.DB_PASSWORD,
 	database: 'vuttr',
 	storage: './__tests__/database.sqlite',
 	define: {

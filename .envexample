@@ -1,7 +1,13 @@
+#ambiente
+NODE_ENV=dev
+
 #auth
-SECRET = 'testeSecret'
+SECRET='secret'
+EXPIRESIN='1d'
 
 #Database
-HOST = 'localhost'
-NAME = 'postgres'
-PASSWORD = 'example'
+DB_HOST='localhost'
+DB_NAME='postgres'
+DB_PASSWORD='example'
+DB_USER='root'
+DB_DATABASE='vuttr'

@@ -4,6 +4,8 @@ services:
     build: .
     container_name: "vuttr-node-js"
     command: sh -c "npm run sequelize db:migrate && npm run start"
+    volumes:
+      - ./:/app
     ports:
       - 3000:3000
   db:
@@ -19,13 +21,6 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
-  web:
-    build: .
-    volumes:
-      - ./:/app
-    ports: [
-      "3333:3000"
-    ]
   swagger-ui:
     image: swaggerapi/swagger-ui
     container_name: swagger-ui

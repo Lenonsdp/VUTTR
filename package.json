@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+	"preinstall": "npm install node-pre-gyp",
 	"dev": "nodemon src/server.js",
 	"build": "sucrase ./src -d ./dist imports",
 	"start": "node ./dist/server.js",
@@ -34,6 +35,5 @@
     "sequelize-cli": "^6.2.0",
     "sqlite3": "^5.0.1",
     "supertest": "^6.0.1"
-  },
-  "heroku-run-build-script": true
+  }
 }

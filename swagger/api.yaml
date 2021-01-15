@@ -33,25 +33,25 @@ paths:
       - "users"
       summary: "Create user"
       description: "Create user."
+      operationId: "createUser"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/xml"
+        - "application/json"
       parameters:
-      - in: "body"
+        - in: "body"
         name: "body"
         description: "Created user object"
         required: true
         schema:
-          $ref: "#/schemas/CreateUser"
+          $ref: "#/components/schemas/CreateUser"
       responses:
         201:
           description: "successful operation" 
   /sessions:
      post:
-      summary: "Create session"
       description: 'Returns token for authorized User'
-      tags:
-      - "users"
+      tags: [users]
+      operationId: Login
       consumes:
         - "application/json"
       parameters:
@@ -60,20 +60,19 @@ paths:
           required: true
           description: 'Login Payload'
           schema:
-            $ref: '#/schemas/Login'
+            $ref: '#/components/schemas/Login'
       responses:
         200:
           schema:
-            $ref: '#/schemas/SuccessLogin'
+            $ref: '#/components/schemas/SuccessLogin'
           description: Token
   /tools:
     get:
-      security:
-      - Bearer: []
       tags:
       - "tools"
       summary: "Returns all tools saves"
       description: "Returns all tools saves"
+      operationId: "getTools"
       produces:
       - "application/json"
       parameters: []
@@ -87,11 +86,9 @@ paths:
               format: "int32"
   /tools/{tag}:
    get:
-    security:
-     - Bearer: []
     tags:
     - "tools"
-    summary: "Find a tool by tag"
+    summary: "Find purchase tool by tag"
     description: ""
     operationId: ""
     produces:
@@ -100,9 +97,9 @@ paths:
     parameters:
     - name: "tag"
       in: "path"
-      description: "Tag of tool that needs to be fetched"
+      description: "Tag of tools that needs to be fetched"
       required: true
-      type: "string"
+      type: "integer"
       maximum: 10.0
       minimum: 1.0
       format: "int64"
@@ -117,8 +114,6 @@ paths:
         description: "Tools not found"
   /tools/:
     post:
-      security:
-      - Bearer: []
       tags:
       - "tools"
       summary: "Place an new tool"
@@ -143,11 +138,9 @@ paths:
           description: "Invalid Tools"
   /tools/{id}/:
     delete:
-      security:
-      - Bearer: []
       tags:
       - "tools"
-      summary: "Delete a tool by ID"
+      summary: "Delete purchase tool by ID"
       description: "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors"
       operationId: "delete"
       produces:
@@ -198,6 +191,7 @@ definitions:
         items: {}
     xml:
       name: "Tools"
+components:
   schemas:
     SuccessLogin:
       type: object

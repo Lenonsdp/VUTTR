@@ -30,20 +30,18 @@ paths:
   /users:
     post:
       tags:
-      - "users"
+       - "users"
       summary: "Create user"
       description: "Create user."
-      operationId: "createUser"
       produces:
-        - "application/xml"
         - "application/json"
       parameters:
-        - in: "body"
-        name: "body"
-        description: "Created user object"
-        required: true
-        schema:
-          $ref: "#/components/schemas/CreateUser"
+        - name: 'users'
+          in: "body"
+          description: "Created user object"
+          required: true
+          schema:
+            $ref: "#/components/schemas/CreateUser"
       responses:
         201:
           description: "successful operation" 

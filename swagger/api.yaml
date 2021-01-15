@@ -28,42 +28,86 @@ securityDefinitions:
      in: header
 paths:
   /users:
-    post:
-      tags:
-       - "users"
-      summary: "Create user"
-      description: "Create user."
-      produces:
-        - "application/json"
-      parameters:
-        - name: 'users'
-          in: "body"
-          description: "Created user object"
-          required: true
-          schema:
-            $ref: "#/components/schemas/CreateUser"
-      responses:
-        201:
-          description: "successful operation" 
+   post:
+     tags:
+      - "users"
+     summary: "Create user"
+     description: "Create user."
+     produces:
+       - "application/json"
+     parameters:
+       - name: 'users'
+         in: "body"
+         description: "Created user object"
+         required: true
+         schema:
+           $ref: "#/components/schemas/RequestCreateUser"
+     responses:
+       "201":
+         schema:
+           $ref: '#/components/schemas/ResponseCreateUser'
+         description: "successful operation" 
+  /users/:
+   put:
+     tags:
+      - "users"
+     summary: "Update user."
+     description: "Update user."
+     produces:
+       - "application/json"
+     parameters:
+       - name: 'users'
+         in: "body"
+         description: "Update user object"
+         required: true
+         schema:
+           $ref: "#/components/schemas/UpdateUser"
+     responses:
+      "201":
+        schema:
+          $ref: '#/components/schemas/ResponseCreateUser'
+        description: "Successful operation" 
   /sessions:
-     post:
-      description: 'Returns token for authorized User'
-      tags: [users]
-      operationId: Login
-      consumes:
-        - "application/json"
-      parameters:
-        - name: 'login'
-          in: 'body'
-          required: true
-          description: 'Login Payload'
-          schema:
-            $ref: '#/components/schemas/Login'
-      responses:
-        200:
-          schema:
-            $ref: '#/components/schemas/SuccessLogin'
-          description: Token
+   post:
+    tags: [users]
+    summary: "Create session"
+    description: 'Returns token for authorized User'
+    consumes:
+      - "application/json"
+    parameters:
+      - name: 'login'
+        in: 'body'
+        required: true
+        description: 'Login Payload'
+        schema:
+          $ref: '#/components/schemas/Login'
+    responses:
+      "200":
+        schema:
+          $ref: '#/components/schemas/SuccessLogin'
+        description: Token
+  /tools/:
+   post:
+    security:
+    - Bearer: []
+    tags:
+    - "tools"
+    summary: "Create an new tool"
+    description: "Create an new tool"
+    produces:
+    - "application/json"
+    parameters:
+    - in: "body"
+      name: "body"
+      description: "Create tool"
+      required: true
+      schema:
+        $ref: "#/components/schemas/CreateTool"
+    responses:
+      "200":
+        schema:
+          $ref: "#/components/schemas/CreateTool"
+        description: "successful operation"
   /tools:
    get:
     security:
@@ -72,18 +116,14 @@ paths:
     - "tools"
     summary: "Returns all tools saves"
     description: "Returns all tools saves"
-    operationId: "getTools"
     produces:
     - "application/json"
     parameters: []
     responses:
       "200":
-        description: "successful operation"
         schema:
-          type: "object"
-          additionalProperties:
-            type: "integer"
-            format: "int32"
+          $ref: "#/components/schemas/GetTool"
+        description: "successful operation"
   /tools/{tag}:
    get:
     security:
@@ -91,10 +131,8 @@ paths:
     tags:
     - "tools"
     summary: "Find purchase tool by tag"
-    description: ""
-    operationId: "" 
+    description: "Find tools inserting a tag"
     produces:
-    - "application/xml"
     - "application/json"
     parameters:
     - name: "tag"
@@ -107,39 +145,9 @@ paths:
       format: "int64"
     responses:
       "200":
-        description: "successful operation"
         schema:
-          $ref: "#/definitions/Tools"
-      "400":
-        description: "Invalid ID supplied"
-      "404":
-        description: "Tools not found"
-  /tools/:
-   post:
-    security:
-    - Bearer: []
-    tags:
-    - "tools"
-    summary: "Place an new tool"
-    description: ""
-    operationId: ""
-    produces:
-    - "application/xml"
-    - "application/json"
-    parameters:
-    - in: "body"
-      name: "body"
-      description: "Create tool"
-      required: true
-      schema:
-        $ref: "#/definitions/Tools"
-    responses:
-      "200":
+          $ref: "#/components/schemas/GetTool"
         description: "successful operation"
-        schema:
-          $ref: "#/definitions/Tools"
-      "400":
-        description: "Invalid Tools"
   /tools/{id}/:
    delete:
     security:
@@ -148,7 +156,6 @@ paths:
     - "tools"
     summary: "Delete a tool by ID"
     description: "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors"
-    operationId: "delete"
     produces:
     - "application/xml"
     - "application/json"
@@ -161,10 +168,8 @@ paths:
       minimum: 1.0
       format: "int64"
     responses:
-      "400":
-        description: "Invalid ID supplied"
-      "404":
-        description: "tool not found"
+      "204":
+        description: "successful operation"
 definitions:
   Users:
     type: "object"
@@ -200,15 +205,10 @@ definitions:
 components:
   schemas:
     SuccessLogin:
-      type: object
+      type: "object"
       properties:
         User:
-           type: "array"
-           items:
-            oneOf:
-            - type: integer
-            - type: string
-            - type: string
+           type: "object"
         Token:
           type: string
       required:
@@ -222,9 +222,28 @@ components:
         password:
           type: "string"
       required:
-        - code
-        - message
-    CreateUser:
+        - email
+        - password
+    RequestCreateUser:
+      type: object
+      properties:
+        name:
+          type: "string"
+        email:
+           type: "string"
+      required:
+        - name
+        - email
+    ResponseCreateUser:
+      type: object
+      properties:
+        id:
+          type: "integer"
+        name:
+          type: "string"
+        email:
+           type: "string"
+    UpdateUser:
       type: object
       properties:
         name:
@@ -232,10 +251,49 @@ components:
         email:
            type: "string"
         password:
+           type: "string"
+        oldpassword:
+           type: "string"
+        confirmPassword:
           type: "string"
       required:
-        - code
-        - message
+        - name
+        - email
+        - password
+        - oldpassword
+        - confirmPassword
+    CreateTool:
+      type: object
+      properties:
+        title:
+          type: "string"
+        link:
+           type: "string"
+        description:
+           type: "string"
+        tags:
+          type: "array"
+          items: {}
+      required:
+        - name
+        - email
+        - password
+        - oldpassword
+        - confirmPassword
+    GetTool:
+      type: object
+      properties:
+        id:
+          type: "integer"
+        title:
+          type: "string"
+        link:
+           type: "string"
+        description:
+           type: "string"
+        tags:
+          type: "array"
+          items: {}
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"

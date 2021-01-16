@@ -66,7 +66,7 @@ Para ocultar a saída dos logs utilize comando com o parâmetro `-d` (execução
 # docker-compose up -d
 ```
 
-Ppor fim rodamos as migrations, para criação das tabelas necessárias para o funcionamento.
+Por fim rodamos as migrations, para criação das tabelas necessárias para o funcionamento.
 
 ```
 # yarn sequelize db:migrate

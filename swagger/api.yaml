@@ -43,24 +43,26 @@ paths:
          description: "successful operation" 
   /users/:
    put:
-     tags:
-      - "users"
-     summary: "Update user."
-     description: "Update user."
-     produces:
-       - "application/json"
-     parameters:
-       - name: 'users'
-         in: "body"
-         description: "Update user object"
-         required: true
-         schema:
-           $ref: "#/components/schemas/UpdateUser"
-     responses:
-      "201":
+    security:
+    - Bearer: []
+    tags:
+     - "users"
+    summary: "Update user."
+    description: "Update user."
+    produces:
+      - "application/json"
+    parameters:
+      - name: 'users'
+        in: "body"
+        description: "Update user object"
+        required: true
         schema:
-          $ref: '#/components/schemas/ResponseCreateUser'
-        description: "Successful operation" 
+          $ref: "#/components/schemas/UpdateUser"
+    responses:
+     "201":
+       schema:
+         $ref: '#/components/schemas/ResponseCreateUser'
+       description: "Successful operation" 
   /sessions:
    post:
     tags: [users]
@@ -248,7 +250,7 @@ components:
            type: "string"
         password:
            type: "string"
-        oldpassword:
+        oldPassword:
            type: "string"
         confirmPassword:
           type: "string"

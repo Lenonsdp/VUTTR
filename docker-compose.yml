@@ -1,12 +1,5 @@
 version: "2"
 services:
-  app:
-    build: .
-    container_name: "vuttr-node-js"
-    volumes:
-      - ./:/app
-    ports:
-      - 82:8080
   db:
     image: postgres
     restart: always
@@ -17,6 +10,8 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+     - app-connect
   swagger-ui:
     image: swaggerapi/swagger-ui
     container_name: swagger-ui
@@ -26,3 +21,26 @@ services:
       - ./swagger:/usr/share/nginx/html/swagger
     environment:
       API_URL: swagger/api.yaml
+    networks:
+     - app-connect
+  app:
+    env_file: 
+     - .env
+    build: .
+    depends_on:
+      - db
+    container_name: "vuttr-node-js"  
+    command: npm run-script dev
+    ports:
+      - 3000:3000
+    volumes:
+     - .:/src/app
+    environment:
+      DB_HOST: db
+    networks:
+     - app-connect
+networks:
+    app-connect:
+        driver: bridge
+volumes:
+    data:

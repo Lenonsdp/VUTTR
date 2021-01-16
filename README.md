@@ -66,8 +66,13 @@ Para ocultar a saída dos logs utilize comando com o parâmetro `-d` (execução
 # docker-compose up -d
 ```
 
-Por fim rodamos as migrations, para criação das tabelas necessárias para o funcionamento.
+Por fim iremos rodar as migrations para isso é preciso executar em modo iterativo o container da aplicação.
 
+```
+# sudo docker exec -it vuttr-node-js /bin/bash
+```
+
+Para executar as migrations execute o seguinte comando
 ```
 # yarn sequelize db:migrate
 ```
@@ -86,15 +91,11 @@ O Vuttr disponibiliza algumas variáveis de ambiente para facilitar o desenvolvi
 | `DB_DATABASE`             || Base do banco de dados, processo de build do docker já faz a criação da base `vuttr`.                                                                     |
 ||
 ### Utilização
-Após configurar o projeto, execute o comando:
-```
-yarn dev
-```
-Aṕos subir o servidor local a documentação pode ser acessada pelo link http://localhost:8001/,
-no qual pode ser executada todas as rotas que foram desenvolvidas para testar suas funcionalidades, ou,
-testar de outra maneira acessando o link como base (http://localhost:3000/)
 
-É possivél alterar a documentação através do arquivo [`api.yaml`](swagger/api.yaml)
+Aṕos executar a configuração do projeto a documentação da API pode ser acessada pelo link http://localhost:8001/,
+no qual pode ser executada todas as rotas que foram desenvolvidas para testar suas funcionalidades, ou testar de outra maneira acessando as rotas com a base URL http://localhost:3000/.
+
+É possivél alterar a documentação do projeto através do arquivo [`api.yaml`](swagger/api.yaml), as modificações serão aplicadas após executar o build do projeto novamente.
 
 ### Testes
 
@@ -113,11 +114,13 @@ Para executar todos os testes, utilize o comando:
 O banco de dados para testes foi configurado com o sqlite3, obtendo informações do arquivo .env.test , no qual os testes rodam as migrations não interferindo na base configurada do postgres inicialmente.
 
 Biblioteca oferece o coverage, qual demonstra toda a cobertura de testes que foram executados.
+
 ## Deploy
 
 A API está disponível neste link (http://165.227.70.236/) servidor na digital ocean, no qual foi configurado o nginx para redirecionar para o swagger, contendo toda a documentação do projeto.
 
 A utilização da API em produção ainda se remete a porta 3000 exemplo http://165.227.70.236:3000/tools
+
 
 ## Ferramentas utilizadas
 - Docker

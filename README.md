@@ -76,6 +76,11 @@ Para executar as migrations execute o seguinte comando
 ```
 # yarn sequelize db:migrate
 ```
+
+Posteriormente digite o comando para sair do modo iterativo
+```
+# exit
+```
 ## Variáveis de ambiente
 
 O Vuttr disponibiliza algumas variáveis de ambiente para facilitar o desenvolvimento:

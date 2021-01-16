@@ -8,7 +8,8 @@ class ToolsController {
 		const schema = Yup.object().shape({
 			title: Yup.string().required(),
 			link: Yup.string().required(),
-			description: Yup.string().required()
+			description: Yup.string().required(),
+			tags: Yup.array().required()
 		});
 
 		if (!(await schema.isValid(req.body))) {

@@ -89,7 +89,6 @@ O Vuttr disponibiliza algumas variáveis de ambiente para facilitar o desenvolvi
 |----------------------------|:------------------------:|--------------------------------------------------------------------------------------------------------------------------|
 | `NODE_ENV`        || Ambiente de desenvolvimento. |
 | `SECRET` || Segredo para gerar o hash de senha.  |
-| `EXPIRESIN`         || Tempo de expiração do segredo.                                                        |
 | `DB_HOST`       || Host para conexão.                                     |
 | `DB_PASSWORD`               || Senha do banco de dados.                                                 |
 | `DB_USER`          || User do banco de dados.                                                          |

@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import User from '../models/User'
 
 class Tools extends Model {
 	static init(sequelize) {
@@ -49,6 +50,19 @@ class Tools extends Model {
 					},
 					set: function (value) {
 						return this.setDataValue('tags', JSON.stringify(value));
+					}
+				},
+				id_user: {
+					type: Sequelize.INTEGER,
+					references: {
+						model: User,
+						key: 'id'
+					},
+					get: function () {
+						return JSON.parse(this.getDataValue('id_user'));
+					},
+					set: function (value) {
+						return this.setDataValue('id_user', value);
 					}
 				}
 			},

@@ -15,7 +15,8 @@ class ToolsController {
 		if (!(await schema.isValid(req.body))) {
 			return res.status(400).json({ error: 'Validation fails.' });
 		}
-		const { id, title, link, description, tags } = await Tools.create(req.body);
+		req.body.id_user = req.userId;
+		const { id, title, link, description, tags } = await Tools.create(req.body, { 'id_user': req.userId });
 
 		return res.status(201).json({
 			title,
@@ -30,9 +31,12 @@ class ToolsController {
 		const { page = 1 } = req.query;
 		const tools = await Tools.findAll({
 			order: ['id'],
-			attributes: [ 'id', 'title', 'link', 'description', 'tags'],
+			attributes: ['id', 'title', 'link', 'description', 'tags'],
 			limit: 20,
 			offset: (page - 1) * 20,
+			where: {
+				id_user: req.userId
+			}
 		});
 
 		return res.json(tools);
@@ -46,14 +50,22 @@ class ToolsController {
 			limit: 20,
 			offset: (page - 1) * 20,
 			where: {
-				tags: { [Op.substring]: req.params.tag }
+				tags: { [Op.substring]: req.params.tag },
+				id_user: req.userId
 			}
 		});
 		return res.json(tools);
 	}
 
 	async delete(req, res) {
-		const tool = await Tools.findByPk(req.params.id);
+		const tool = await Tools.findOne(
+			{
+				where: {
+					id: req.params.id,
+					id_user: req.userId
+				}
+			}
+		);
 		if (tool) {
 			await Tools.destroy({
 				where: {

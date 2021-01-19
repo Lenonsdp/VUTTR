@@ -23,9 +23,6 @@ jobs:
        yarn test
     - name: Deploy package to digitalocean
       uses: appleboy/ssh-action@master
-      env:
-        GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
        host: ${{ secrets.HOST }}
        username: ${{ secrets.USERNAME }}

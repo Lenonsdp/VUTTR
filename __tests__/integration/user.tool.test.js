@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../src/app';
-
+var token = '';
 describe('Users', () => {
 	it('Create user', async () => {
 		const response = await request(app)
@@ -49,6 +49,7 @@ describe('Authentication', () => {
 				email: 'lenonsdp@hotmail.com',
 				password: '123456',
 			});
+			token = response.body.token;
 		expect(response.body).toHaveProperty('token');
 	});
 });
@@ -57,7 +58,7 @@ describe('Update', () => {
 	it('Update user fail validation schema', async () => {
 		const response = await request(app)
 			.post('/users')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDI5MjM5LCJleHAiOjE2MTEwMzUyMzl9.9Fa_dy4BzBZhsfqMa8lIwXxc75BWjMQzcTGz8-muYb4`)
+			.set('Authorization', `Bearer `+ token)
 			.send({
 				name: 'Lenon',
 				email: 'lenonsdp@hotmail.com',
@@ -101,7 +102,7 @@ describe('Tools', () => {
 	it('Create Tool with token valid', async () => {
 		const response = await request(app)
 			.post('/tools')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDI5MjM5LCJleHAiOjE2MTEwMzUyMzl9.9Fa_dy4BzBZhsfqMa8lIwXxc75BWjMQzcTGz8-muYb4`)
+			.set('Authorization', `Bearer `+ token)
 			.send({
 				title: "hotel",
 				link: "https://github.com/typicode/hotel",
@@ -116,7 +117,7 @@ describe('Tools', () => {
 	it('Get tools', async () => {
 		const response = await request(app)
 			.get('/tools')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDI5MjM5LCJleHAiOjE2MTEwMzUyMzl9.9Fa_dy4BzBZhsfqMa8lIwXxc75BWjMQzcTGz8-muYb4`);
+			.set('Authorization', `Bearer `+ token);
 		expect(response.status).toBe(200)
 	});
 });
@@ -125,7 +126,7 @@ describe('Tools', () => {
 	it('Get tools by tag', async () => {
 		const response = await request(app)
 			.get('/tools/node')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDI5MjM5LCJleHAiOjE2MTEwMzUyMzl9.9Fa_dy4BzBZhsfqMa8lIwXxc75BWjMQzcTGz8-muYb4`);
+			.set('Authorization', `Bearer `+ token);
 		expect(response.status).toBe(200)
 	});
 });
@@ -134,7 +135,7 @@ describe('Tools', () => {
 	it('Delete tools by id', async () => {
 		const response = await request(app)
 			.delete('/tools/1')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDI5MjM5LCJleHAiOjE2MTEwMzUyMzl9.9Fa_dy4BzBZhsfqMa8lIwXxc75BWjMQzcTGz8-muYb4`);
+			.set('Authorization', `Bearer `+ token);
 		expect(response.status).toBe(204)
 	});
 });
@@ -143,7 +144,7 @@ describe('Update', () => {
 	it('Update user', async () => {
 		const response = await request(app)
 			.put('/users')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDI5MjM5LCJleHAiOjE2MTEwMzUyMzl9.9Fa_dy4BzBZhsfqMa8lIwXxc75BWjMQzcTGz8-muYb4`)
+			.set('Authorization', `Bearer `+ token)
 			.send({
 				name: 'Lenon',
 				email: 'lenonsdp@hotmail.com',

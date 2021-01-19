@@ -40,6 +40,7 @@ describe('Users', () => {
 	});
 });
 
+
 describe('Authentication', () => {
 	it('Create session', async () => {
 		const response = await request(app)
@@ -54,26 +55,10 @@ describe('Authentication', () => {
 });
 
 describe('Update', () => {
-	it('Update user', async () => {
-		const response = await request(app)
-			.put('/users')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwOTc1MjY3LCJleHAiOjE2MTA5ODEyNjd9.FmBn96sPgS93zawy5-FWmI71QO4E3fm_eF8-T8nNp2s`)
-			.send({
-				name: 'Lenon',
-				email: 'lenonsdp@hotmail.com',
-				oldPassword: '123456',
-				password: '654321',
-				confirmPassword: '654321',
-			});
-		expect(response.body).toHaveProperty('id', 'name', 'email');
-	});
-});
-
-describe('Update', () => {
 	it('Update user fail validation schema', async () => {
 		const response = await request(app)
 			.post('/users')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwOTc1MjY3LCJleHAiOjE2MTA5ODEyNjd9.FmBn96sPgS93zawy5-FWmI71QO4E3fm_eF8-T8nNp2s`)
+			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDIzMjA2LCJleHAiOjE2MTEwMjkyMDZ9.7n0YgG67ggIx4xtNoIbfbVGpRJfUI2dxqF_aY9BwREU`)
 			.send({
 				name: 'Lenon',
 				email: 'lenonsdp@hotmail.com',
@@ -117,7 +102,7 @@ describe('Tools', () => {
 	it('Create Tool with token valid', async () => {
 		const response = await request(app)
 			.post('/tools')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwOTc1MjY3LCJleHAiOjE2MTA5ODEyNjd9.FmBn96sPgS93zawy5-FWmI71QO4E3fm_eF8-T8nNp2s`)
+			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDIzMjA2LCJleHAiOjE2MTEwMjkyMDZ9.7n0YgG67ggIx4xtNoIbfbVGpRJfUI2dxqF_aY9BwREU`)
 			.send({
 				title: "hotel",
 				link: "https://github.com/typicode/hotel",
@@ -132,7 +117,7 @@ describe('Tools', () => {
 	it('Get tools', async () => {
 		const response = await request(app)
 			.get('/tools')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwOTc1MjY3LCJleHAiOjE2MTA5ODEyNjd9.FmBn96sPgS93zawy5-FWmI71QO4E3fm_eF8-T8nNp2s`);
+			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDIzMDIyLCJleHAiOjE2MTEwMjkwMjJ9.t-kQ-4BuxrGgmzlPQ3LbQBVCaJGxb-bLzT-lpjViWD0`);
 		expect(response.status).toBe(200)
 	});
 });
@@ -141,7 +126,7 @@ describe('Tools', () => {
 	it('Get tools by tag', async () => {
 		const response = await request(app)
 			.get('/tools/node')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwOTc1MjY3LCJleHAiOjE2MTA5ODEyNjd9.FmBn96sPgS93zawy5-FWmI71QO4E3fm_eF8-T8nNp2s`);
+			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDIzMDIyLCJleHAiOjE2MTEwMjkwMjJ9.t-kQ-4BuxrGgmzlPQ3LbQBVCaJGxb-bLzT-lpjViWD0`);
 		expect(response.status).toBe(200)
 	});
 });
@@ -150,7 +135,23 @@ describe('Tools', () => {
 	it('Delete tools by id', async () => {
 		const response = await request(app)
 			.delete('/tools/1')
-			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwOTc1MjY3LCJleHAiOjE2MTA5ODEyNjd9.FmBn96sPgS93zawy5-FWmI71QO4E3fm_eF8-T8nNp2s`);
+			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDIzMDIyLCJleHAiOjE2MTEwMjkwMjJ9.t-kQ-4BuxrGgmzlPQ3LbQBVCaJGxb-bLzT-lpjViWD0`);
 		expect(response.status).toBe(204)
+	});
+});
+
+describe('Update', () => {
+	it('Update user', async () => {
+		const response = await request(app)
+			.put('/users')
+			.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjExMDIzMjA2LCJleHAiOjE2MTEwMjkyMDZ9.7n0YgG67ggIx4xtNoIbfbVGpRJfUI2dxqF_aY9BwREU`)
+			.send({
+				name: 'Lenon',
+				email: 'lenonsdp@hotmail.com',
+				oldPassword: '123456',
+				password: '654321',
+				confirmPassword: '654321',
+			});
+		expect(response.body).toHaveProperty('id', 'name', 'email');
 	});
 });

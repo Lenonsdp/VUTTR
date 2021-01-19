@@ -187,6 +187,9 @@ definitions:
       id:
         type: "integer"
         format: "int64"
+      id_user:
+        type: "integer"
+        format: "int64"
       link:
         type: "string"
       title:

@@ -109,7 +109,7 @@ O Vuttr implementa os testes automatizados com a framework [Jest](https://jestjs
 
 A estrutura está contida em:
 
-- Integração (diretório [`integration`](__tests__/Integration))
+- Integração (diretório [`integration`](__tests__/integration))
 
 Para executar todos os testes, utilize o comando:
 
@@ -128,8 +128,8 @@ A API está disponível neste link (http://165.227.70.236/) servidor na digital 
 
 A utilização da API em produção ainda se remete a porta 3000 exemplo http://165.227.70.236:3000/tools
 
-Foi implementado a integração continua, utilizando o [buddy](https://app.buddy.works/), cada push commit feito roda uma pipeline, que contém os testes de integração, e os comandos para executar a atualização e o build do projeto em produção.
-![](https://i.imgur.com/di7bf35.png)
+Foi implementado a integração continua, utilizando o [buddy](https://app.buddy.works/), cada push commit feito roda uma pipeline, que contém os testes de integração, e os comandos para executar as migrations, atualizaççoes e o build do projeto em produção.
+![](https://i.imgur.com/xDweDcX.png)
 
 Se o teste falhar, o deploy não é executado, enviando um e-mail notificando o ocorrido.
 

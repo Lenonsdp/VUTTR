@@ -28,7 +28,7 @@ Para configurar o Vuttr, certifique-se de que os seguintes softwares estão inst
 
 * [Docker Engine](https://docs.docker.com/engine/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
-* [Node.js LTS (v14.x)](https://nodejs.org/en/download/)
+* [Node.js](https://nodejs.org/en/download/)
 * [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
 
 Antes de configurar o Vuttr, você precisa baixar este repositório Git. Depois disso, você pode instalar a aplicação.
@@ -49,6 +49,11 @@ Copie o arquivo contendo as variáveis de ambiente do projeto:
 $ cp .envexample .env
 ```
 
+Adicione a imagem do swagger
+
+```
+$ docker pull swaggerapi/swagger-ui
+```
 
 Construa o ambiente Docker usando o comando:
 

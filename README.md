@@ -119,9 +119,14 @@ A estrutura está contida em:
 Para executar todos os testes, utilize o comando:
 
 ```
+# sudo docker exec -it vuttr-node-js /bin/bash
+```
+```
 # yarn test
 ```
-
+```
+# exit
+```
 O banco de dados para testes foi configurado com o sqlite3, obtendo informações do arquivo .env.test , no qual os testes rodam as migrations não interferindo na base configurada do postgres.
 
 Biblioteca oferece o coverage, qual demonstra toda a cobertura de testes que foram executados.
